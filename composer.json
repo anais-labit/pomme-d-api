@@ -1,0 +1,17 @@
+{
+    "name": "vitaly/pomme-d-api",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jeremy",
+            "email": "jeremy.nowak@laplateforme.io"
+        }
+    ],
+    "require": {
+        "altorouter/altorouter": "^2.0"
+    }
+}
