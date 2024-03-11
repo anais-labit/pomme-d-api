@@ -18,29 +18,18 @@
 
     
     <div
-           x-data="{users: []}"
-           x-init="fetch('https://jsonplaceholder.typicode.com/users')
+           x-data="{products: []}"
+           x-init="fetch('https://world.openfoodfacts.net/api/v2/product/3017624010701')
                       .then(response => response.json())
-                      .then(data => users = data)">
+                      .then(data => products = data)">
     <div>
-      <!-- begin: user card -->
-      <template x-for="user in users">
-        <div>
-          <div >
-            <div>
-                <div x-text="user.id"></div>
-              <div x-text="user.name"></div>
-              <a x-bind:href="'mailto:' + user.email" x-text="user.email"></a>     
-              <a  x-bind:href="'https://' + user.website" x-text="user.website"></a>
-            </div>
-          </div>
-        </div>
+      <template x-for="product in products">
+
+                <div x-text="product.id"></div>
+
       </template>
-      <!-- end: user card -->
     </div>
 </div>
-
-
 
 </body>
 </html>
