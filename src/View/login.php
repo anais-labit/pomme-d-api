@@ -2,29 +2,21 @@
 
 require_once 'vendor/autoload.php';
 
-
-
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=`device-width`, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<form action="login" method="post">
-  <div class="flex justify-center items-center gap-4">
-  <div class="flex flex-col items-center gap-6 bg-yellow-500">
-    <div class="flex gap-4">
-    <input type="login" name="login" placeholder="login">
-  </div>
-  <div class="flex gap-4">
-    <input type="password" name="password" placeholder="password">
-  </div>
-  <button type="submit">Login</button>
-  </div>
-  </div>
-</body>
-</html>
+
+
+
+    <form action="login" method="post">
+        <div class="flex justify-center items-center gap-4 bg-[#5A945B] p-5 rounded-b">
+            <div class="flex flex-col items-center gap-6 ">
+                <div class="flex gap-4">
+                    <input class="rounded pl-1" type="login" name="login" placeholder="login">
+                </div>
+                <div class="flex gap-4">
+                    <input class="rounded pl-1" type="password" name="password" placeholder="password">
+                </div>
+                <button class="border-2 border-white px-5 rounded text-white" type="submit">Login</button>
+            </div>
+        </div>
+    </form>
