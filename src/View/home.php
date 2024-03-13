@@ -11,7 +11,10 @@
 </head>
 
 <body>
-<div x-data="{
+    <header>
+        <?php require_once 'header.php' ?>
+    </header>
+    <div x-data="{
     products: [],
     currentPage: 1,
     itemsPerPage: 5,
@@ -42,6 +45,9 @@
         if (this.currentPage > 1) {
             this.currentPage--;
         }
+    },
+       totalPages() {
+        return Math.ceil(this.products.length / this.itemsPerPage);
     }
 }" x-init="fetchProducts()">
 
@@ -74,7 +80,11 @@
                 </li>
             </template>
         </ul>
-</div>
+
+        <!-- Pagination -->
+        <button @click="prevPage()" :disabled="currentPage === 1">Previous</button>
+        <button @click="nextPage()" :disabled="currentPage === totalPages()">Next</button>
+    </div>
 
 
 </body>

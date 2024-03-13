@@ -8,7 +8,7 @@ use App\Controller\UserController;
 $router = new AltoRouter();
 
 
-$router->setBasePath('/pomme-d-api');
+$router->setBasePath('/plateforme/pomme-d-api');
 
 
 $router->map('GET', '/', function () {
@@ -35,9 +35,8 @@ $router->map('POST', '/login', function () {
 
 
 
-$router->map('GET', '/product/[i:id]', function($id){
+$router->map('GET', '/product/[i:id]', function ($id) {
     require "./src/View/product.php";
-    
 }, "product");
 
 
