@@ -14,11 +14,11 @@
     <header>
         <?php require_once 'header.php' ?>
     </header>
+    
     <div x-data="{
     products: [],
     currentPage: 1,
     itemsPerPage: 5,
-    showProductInfo: {},
     fetchProducts() {
         fetch('https://world.openfoodfacts.org/api/v2/search')
             .then(response => response.json())
@@ -28,13 +28,6 @@
         const start = (this.currentPage - 1) * this.itemsPerPage;
         const end = start + this.itemsPerPage;
         return this.products.slice(start, end);
-    },
-    toggleProductInfo(productId) {
-        if (this.showProductInfo.hasOwnProperty(productId)) {
-            this.showProductInfo[productId] = !this.showProductInfo[productId];
-        } else {
-            this.showProductInfo[productId] = true; // Utilisation de l'opérateur d'assignation
-        }
     },
     nextPage() {
         if (this.currentPage < Math.ceil(this.products.length / this.itemsPerPage)) {
@@ -55,13 +48,15 @@
         <ul>
             <template x-for="product in paginatedData()" :key="product.id">
                 <li>
-                    <div x-text="product.product_name"></div>
-                    <img :src="product.image_url" alt="">
-                    <div x-text="product.allergens"></div>
-                    <button @click="toggleProductInfo(product._id)">Show infos</button>
-                    <button :id="product._id">Add to favorite</button>
+                    <div :id="product.id">
+                        <div x-text="product.product_name"></div>
+                        <img :src="product.image_url" alt="">
+                        <div x-text="product.allergens"></div>
+                        <a :href="'product/' + product._id">Show infos</a>
+                        <button :id="product._id">Add to favorite</button>
+                    </div>
                     <!-- Bloc pour afficher les informations supplémentaires -->
-                    <div x-show="showProductInfo[product._id]" x-cloak x-transition.opacity>
+                    <!-- <div x-show="showProductInfo[product._id]" x-cloak x-transition.opacity>
                         <div class="popup-background" style="background-color: rgba(0, 0, 0, 0.9); width: 100%; height: 100%;">
                             <div class="popup-content" style="background-color: wheat; width: 50%; height: 50%; z-index: 101;">
                                 <button @click="toggleProductInfo(product._id)">X</button>
@@ -76,7 +71,7 @@
                                 <p>Country: <span x-text="product.countries"></span></p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </li>
             </template>
         </ul>

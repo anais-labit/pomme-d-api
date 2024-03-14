@@ -10,7 +10,6 @@ $router = new AltoRouter();
 
 $router->setBasePath('/plateforme/pomme-d-api');
 
-
 $router->map('GET', '/', function () {
     require "./src/View/home.php";
 }, "home");
