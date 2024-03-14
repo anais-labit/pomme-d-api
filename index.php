@@ -8,7 +8,7 @@ use App\Controller\UserController;
 $router = new AltoRouter();
 
 
-$router->setBasePath('/plateforme/pomme-d-api');
+$router->setBasePath('/pomme-d-api');
 
 $router->map('GET', '/', function () {
     require "./src/View/home.php";

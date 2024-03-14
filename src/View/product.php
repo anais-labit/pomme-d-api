@@ -1,19 +1,7 @@
 <?php
-
-var_dump($_SERVER['REQUEST_URI']);
-
-// Récupérer l'URL actuelle
 $currentURL = $_SERVER['REQUEST_URI'];
-
-// Diviser l'URL en segments en utilisant '/'
 $urlSegments = explode('/', $currentURL);
-
-// Récupérer le dernier segment qui contient l'ID du produit
 $productID = end($urlSegments);
-
-// Afficher l'ID du produit
-echo "ID du produit : " . $productID;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,32 +17,36 @@ echo "ID du produit : " . $productID;
 
 <body>
     <header>
-        <?php require_once 'header.php' ?>
+        <?php include 'header.php' ?>
     </header>
-    <p> PAGE PRODUCT</p>
 
-
-    <div x-data="{ elements: [], productId: '<?= $productID ?>' }" x-init="fetch(`https://world.openfoodfacts.org/api/v2/product/${productId}.json`)
+    <div class="m-5 mt-16" x-data="{ elements: [], productId: '<?= $productID ?>' }" x-init="fetch(`https://world.openfoodfacts.org/api/v2/product/${productId}.json`)
             .then(response => response.json())
             .then(data => elements = [data.product])">
 
         <ul>
             <template x-for="element in elements">
                 <li>
-                    <a :href="'/plateforme/pomme-d-api/#' + element._id">retour</a>
-
-                    <div x-text=" element.product_name">
+                    <div class="flex justify-between mb-12">
+                        <a class="underline" :href="/#' + element._id">retour</a>
+                        <button :id="element._id">Add to favorite</button>
                     </div>
-                    <img :src="element.image_url" alt="">
-                    <div x-text="element.allergens"></div>
-
-                    <button :id="element._id">Add to favorite</button>
-                    <div x-text="element.brands_tags"></div>
-                    <div x-text="element.categories_tags"></div>
-                    <div x-text="element.stores_tags"></div>
-                    <div x-text="element.generic_name"></div>
-                    <div x-text="element.nutriment_levels.fat"></div>
-
+                    
+                    <div>
+                    <div class="text-[32px] font-bold bg-green-200" x-text=" element.product_name"></div>
+                    <div  class="text-[24px] mb-5" x-text="element.brands_tags"></div>
+                    </div>
+                    <div class="flex max-[640px]:flex-col lg:flex-row">
+                        <div class="max-[640px] lg:w-2/6 flex justify-center">
+                            <img :src="element.image_url" :alt="element.product_name">
+                        </div>
+                        <div class="m-5 lg:w-4/6 bg-red-200 text-wrap">
+                            <div x-text="element.allergens"></div>
+                            <div x-text="element.categories_tags"></div>
+                            <div x-text="element.generic_name"></div>
+                            <div x-text="element.nutriment_levels.fat"></div>
+                        </div>
+                    </div>
 
 
 

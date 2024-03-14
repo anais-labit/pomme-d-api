@@ -1,7 +1,7 @@
 
 <nav class="bg-[#5A945B] text-[18px] text-white flex flex-row justify-between h-16">
     <div class="mx-5 my-4 ">
-        <img src="./public/img/logo.png" alt="logo" class="h-28 w-28 rounded-xl border-2 border-black">
+        <img src="public/img/logo.png" alt="logo" class="h-28 w-28 rounded-xl border-2 border-black">
     </div>
     <div class="flex flex-row gap-6 justify-end  my-5 mx-5">
         

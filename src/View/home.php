@@ -12,7 +12,7 @@
 
 <body>
     <header>
-        <?php require_once 'header.php' ?>
+        <?php include 'header.php' ?>
     </header>
 
     <div x-data="{

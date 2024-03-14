@@ -4,9 +4,6 @@ require_once 'vendor/autoload.php';
 
 ?>
 
-
-
-
     <form action="login" method="post">
         <div class="flex justify-center items-center gap-4 bg-[#5A945B] p-5 rounded-b">
             <div class="flex flex-col items-center gap-6 ">
