@@ -14,7 +14,7 @@
     <header>
         <?php require_once 'header.php' ?>
     </header>
-    
+
     <div x-data="{
     products: [],
     currentPage: 1,
@@ -41,8 +41,32 @@
     },
        totalPages() {
         return Math.ceil(this.products.length / this.itemsPerPage);
+    },
+    userInput: '', 
+    userProducts: [],
+    fetchQuery() {
+        const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${this.userInput}`;
+        const options = {
+            mode: 'no-cors'
+        };
+        fetch(url)
+            .then(response => response.json())
+            .then(data => this.products = data.products)
+            .catch(error => console.error('Error fetching products:', error));
     }
 }" x-init="fetchProducts()">
+
+        <form class="flex gap-1 items-center" @submit.prevent="fetchQuery">
+            <x-search-modal>
+                <input x-model="userInput" name="userInput" type="text" class="rounded-lg text-3xl font-semibold tracking-wide text-cyan-500 focus:border-cyan-400 shadow-xl border-4 px-4 py-2 w-full">
+            </x-search-modal>
+
+            <button type="submit">
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="text-cyan-300 w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+            </button>
+        </form>
 
         <!-- Affichage des produits de la page courante -->
         <ul>
@@ -75,6 +99,16 @@
                 </li>
             </template>
         </ul>
+
+
+
+        <div>
+            <ul>
+                <template x-for="product in userProducts" :key="product.code">
+                    <li x-text="product.product_name"></li>
+                </template>
+            </ul>
+        </div>
 
         <!-- Pagination -->
         <button @click="prevPage()" :disabled="currentPage === 1">Previous</button>

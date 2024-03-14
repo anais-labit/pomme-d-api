@@ -22,6 +22,7 @@
             " @click="registerOpen = !registerOpen">Register</button>
             <div class="absolute right-0 top-16" x-show="loginOpen" @click.outside="loginOpen = false" x-html="loginData" x-transition.opacity></div>
             <div class="absolute right-0 top-16" x-show="registerOpen" @click.outside="registerOpen = false" x-html="registerData" x-transition.opacity></div>
+            
         </div>
     </div>
 </nav>
