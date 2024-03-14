@@ -45,6 +45,8 @@ $productID = end($urlSegments);
                             <div x-text="element.categories_tags"></div>
                             <div x-text="element.generic_name"></div>
                             <div x-text="element.nutriment_levels.fat"></div>
+                            <div x-text="element.nutriscore_grade"></div>
+                            <img :src="'public/img/' + product.nutriscore_grade + '.svg'" alt="">
                         </div>
                     </div>
 

@@ -14,7 +14,7 @@
     <header>
         <?php include 'header.php' ?>
     </header>
-
+    
     <div x-data="{
     products: [],
     currentPage: 1,
@@ -77,7 +77,8 @@
                         <img :src="product.image_url" alt="">
                         <div x-text="product.allergens"></div>
                         <a :href="'product/' + product._id">Show infos</a>
-                        <button :id="product._id">Add to favorite</button>
+                        <div x-text="product.nutriscore_grade"></div>
+                        <img :src="'public/img/' + product.nutriscore_grade + '.svg'" alt="">                        <button :id="product._id">Add to favorite</button>
                     </div>
                     <!-- Bloc pour afficher les informations supplémentaires -->
                     <!-- <div x-show="showProductInfo[product._id]" x-cloak x-transition.opacity>
