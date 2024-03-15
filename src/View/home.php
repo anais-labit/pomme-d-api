@@ -14,7 +14,7 @@
     <header>
         <?php include 'header.php' ?>
     </header>
-    
+
     <div x-data="{
     products: [],
     currentPage: 1,
@@ -45,10 +45,7 @@
     userInput: '', 
     userProducts: [],
     fetchQuery() {
-        const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${this.userInput}`;
-        const options = {
-            mode: 'no-cors'
-        };
+        const url = `https://world.openfoodfacts.org/api/v2/search?categories_tags=${this.userInput}`;
         fetch(url)
             .then(response => response.json())
             .then(data => this.products = data.products)
@@ -78,7 +75,7 @@
                         <div x-text="product.allergens"></div>
                         <a :href="'product/' + product._id">Show infos</a>
                         <div x-text="product.nutriscore_grade"></div>
-                        <img :src="'public/img/' + product.nutriscore_grade + '.svg'" alt="">                        <button :id="product._id">Add to favorite</button>
+                        <img :src="'public/img/' + product.nutriscore_grade + '.svg'" alt=""> <button :id="product._id">Add to favorite</button>
                     </div>
                     <!-- Bloc pour afficher les informations supplémentaires -->
                     <!-- <div x-show="showProductInfo[product._id]" x-cloak x-transition.opacity>
