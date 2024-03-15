@@ -1,14 +1,17 @@
 <?php
 require_once 'vendor/autoload.php';
 
+use App\Controller\FavoriteController;
 use App\Controller\UserController;
 
-
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 $router = new AltoRouter();
 
 
-$router->setBasePath('/pomme-d-api');
+$router->setBasePath('/plateforme/pomme-d-api');
 
 $router->map('GET', '/', function () {
     require "./src/View/home.php";
@@ -38,9 +41,18 @@ $router->map('GET', '/product/[i:id]', function ($id) {
     require "./src/View/product.php";
 });
 
-$router->map('GET', '/product', function () {
-    require "./src/View/product.php";
+
+$router->map('POST', '/product/favorite', function () {
+
+    $controller = new FavoriteController;
+    if (isset($_POST)) {
+        // $productId = ($_POST['productId']);
+        $idUser = $_SESSION['id_user'];
+        // $controller->create($idUser, $productId);
+    }
+
 });
+
 
 $match = $router->match();
 

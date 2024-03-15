@@ -8,7 +8,7 @@ Class User{
 
     public function __construct(){
 
-        $this->pdo = new \PDO("mysql:host=localhost;dbname=pomme_d_api", "root", "root");
+        $this->pdo = new \PDO("mysql:host=localhost;dbname=pomme_d_api", "anais", "");
     }
 
     public function create($login, $password){
