@@ -1,9 +1,3 @@
-<?php
-
-require_once 'vendor/autoload.php';
-
-
-?>
 
   <form action="register" method="post">
     <div class="flex justify-center items-center gap-4 bg-[#5A945B] p-5 rounded-b">

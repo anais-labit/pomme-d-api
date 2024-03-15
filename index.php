@@ -4,7 +4,6 @@ require_once 'vendor/autoload.php';
 use App\Controller\UserController;
 
 
-
 $router = new AltoRouter();
 
 
@@ -36,11 +35,8 @@ $router->map('POST', '/login', function () {
 
 $router->map('GET', '/product/[i:id]', function ($id) {
     require "./src/View/product.php";
-});
+}, "product");
 
-$router->map('GET', '/product', function () {
-    require "./src/View/product.php";
-});
 
 $match = $router->match();
 

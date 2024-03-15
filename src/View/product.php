@@ -3,9 +3,9 @@ $currentURL = $_SERVER['REQUEST_URI'];
 $urlSegments = explode('/', $currentURL);
 $productID = end($urlSegments);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,9 +14,9 @@ $productID = end($urlSegments);
     <link rel="stylesheet" href="public/style/style.css">
     <title>Document</title>
 </head>
-
 <body>
-    <header>
+
+<header>
         <?php include 'header.php' ?>
     </header>
 
@@ -28,7 +28,7 @@ $productID = end($urlSegments);
             <template x-for="element in elements">
                 <li>
                     <div class="flex justify-between mb-12">
-                        <a class="underline" :href="/#' + element._id">retour</a>
+                        <a :href="/#' + element._id">retour</a>
                         <button :id="element._id">Add to favorite</button>
                     </div>
                     
@@ -40,13 +40,25 @@ $productID = end($urlSegments);
                         <div class="max-[640px] lg:w-2/6 flex justify-center">
                             <img :src="element.image_url" :alt="element.product_name">
                         </div>
-                        <div class="m-5 lg:w-4/6 bg-red-200 text-wrap">
-                            <div x-text="element.allergens"></div>
-                            <div x-text="element.categories_tags"></div>
-                            <div x-text="element.generic_name"></div>
+                        <div class="flex flex-col">
+                            <div class="text-wrap" x-text="element.generic_name"></div>
+                            <div x-text="'Ingredients: ' + element.ingredients_text"></div>                            <div x-text="element.allergens"></div>
+                            <div x-text="'Categorie: ' + element.categories"></div>
+                            <div x-text="'energie : ' + element.nutriments.energy_value"></div>
                             <div x-text="element.nutriment_levels.fat"></div>
-                            <div x-text="element.nutriscore_grade"></div>
+                            <div x-text="'Vendue :' + element.countries"></div>
+                           
                             <img :src="'public/img/' + product.nutriscore_grade + '.svg'" alt="">
+                        </div>
+                        <div>
+                            <p> Nutriments pour 100g</p>
+                            <div x-text="'glucide: ' + element.nutriments.sugars"></div>
+                            <div x-text="'sel: ' + element.nutriments.salt"></div>
+                            <div x-text="'gras: ' + element.nutriments.fat"></div>
+                            <div x-text="'dontgrassaturé: ' + element.nutriscore_data.saturated_fat"></div>
+                            <div x-text="'calorie:' + element.nutriments.energy"></div>
+                            <div x-text="'proteines: ' + element.nutriments.proteins"></div>
+                            <div x-text="'fibre : ' + element.nutriments.fiber"></div>
                         </div>
                     </div>
 
@@ -58,7 +70,7 @@ $productID = end($urlSegments);
 
 
     </div>
-
+    
 </body>
-
 </html>
+

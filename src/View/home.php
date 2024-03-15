@@ -18,7 +18,7 @@
     <div x-data="{
     products: [],
     currentPage: 1,
-    itemsPerPage: 5,
+    itemsPerPage: 12,
     fetchProducts() {
         fetch('https://world.openfoodfacts.org/api/v2/search')
             .then(response => response.json())
@@ -52,53 +52,44 @@
             .catch(error => console.error('Error fetching products:', error));
     }
 }" x-init="fetchProducts()">
-
-        <form class="flex gap-1 items-center" @submit.prevent="fetchQuery">
+        <div class="w-screen p-5 flex justify-end">
+        <form class="flex gap-1  items-center" @submit.prevent="fetchQuery">
             <x-search-modal>
-                <input x-model="userInput" name="userInput" type="text" class="rounded-lg text-3xl font-semibold tracking-wide text-cyan-500 focus:border-cyan-400 shadow-xl border-4 px-4 py-2 w-full">
+                <input x-model="userInput" name="userInput" type="text" class="rounded-lg text-3xl font-semibold tracking-wide text-[#5A945B] max-[640px]:ml-32 focus:border-[#5A945B] shadow-xl border-4 px-4 py-2  max-[640px]:w-3/4 lg:w-full">
             </x-search-modal>
 
             <button type="submit">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="text-cyan-300 w-6 h-6">
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="text-[#5A945B] w-6 h-6 mr-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
             </button>
         </form>
+        </div>
 
         <!-- Affichage des produits de la page courante -->
-        <ul>
+        <div class="grid max-[640px]:grid-cols-2 lg:grid-cols-4 m-5 max-[640px]:gap-2 lg:gap-8 justify-center">
             <template x-for="product in paginatedData()" :key="product.id">
-                <li>
-                    <div :id="product.id">
-                        <div x-text="product.product_name"></div>
-                        <img :src="product.image_url" alt="">
-                        <div x-text="product.allergens"></div>
-                        <a :href="'product/' + product._id">Show infos</a>
-                        <div x-text="product.nutriscore_grade"></div>
-                        <img :src="'public/img/' + product.nutriscore_grade + '.svg'" alt=""> <button :id="product._id">Add to favorite</button>
+                <div :id="product.id" class="flex flex-col justify-around items-center border-2 rounded-2xl">
+                    <div class="flex justify-center w-full h-1/2 items-center p-5">
+                        <img :src="product.image_url" alt="" class="object-contain h-48 w-64">
                     </div>
-                    <!-- Bloc pour afficher les informations supplémentaires -->
-                    <!-- <div x-show="showProductInfo[product._id]" x-cloak x-transition.opacity>
-                        <div class="popup-background" style="background-color: rgba(0, 0, 0, 0.9); width: 100%; height: 100%;">
-                            <div class="popup-content" style="background-color: wheat; width: 50%; height: 50%; z-index: 101;">
-                                <button @click="toggleProductInfo(product._id)">X</button>
-                                <h2>Product info</h2>
-                                <p>Product name: <span x-text="product.product_name"></span></p>
-                                <p>Brand: <span x-text="product.brands"></span></p>
-                                <p>Quantity: <span x-text="product.quantity"></span></p>
-                                <p>Ingredients: <span x-text="product.ingredients_text"></span></p>
-                                <p>Allergens: <span x-text="product.allergens"></span></p>
-                                <p>Labels: <span x-text="product.labels"></span></p>
-                                <p>Stores: <span x-text="product.stores"></span></p>
-                                <p>Country: <span x-text="product.countries"></span></p>
-                            </div>
+                    <div class="h-1/2 my-5">
+                        <div class="mx-5">
+                            <div x-text="product.brands_tags" class="uppercase text-xl"></div>
+                            <div x-text="product.product_name" class="text-lg"></div>
                         </div>
-                    </div> -->
-                </li>
+                        <div class="flex max-[640px]:flex-col justify-center items-center gap-8"> 
+                            <img :src="'public/img/' + product.nutriscore_grade + '.svg'" alt="" class="max-[640px]:w-3/4 lg:w-1/3 max-[640px]:py-2 lg:py-5">
+                             <a class="text-xl underline" :href="'product/' + product._id">Show infos</a>
+                        </div>
+                        <div class="flex justify-center w-full p-5">
+                            
+                            <button class="underline" :id="product._id">Add to favorite</button>
+                        </div>
+                    </div>
+                </div>
             </template>
-        </ul>
-
-
+        </div>
 
         <div>
             <ul>
@@ -109,8 +100,10 @@
         </div>
 
         <!-- Pagination -->
+        <div class="flex justify-between text-2xl m-12">
         <button @click="prevPage()" :disabled="currentPage === 1">Previous</button>
         <button @click="nextPage()" :disabled="currentPage === totalPages()">Next</button>
+        </div>
     </div>
 
 
