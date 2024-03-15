@@ -46,11 +46,10 @@ $router->map('POST', '/product/favorite', function () {
 
     $controller = new FavoriteController;
     if (isset($_POST)) {
-        // $productId = ($_POST['productId']);
+        $productId = ($_POST['productId']);
         $idUser = $_SESSION['id_user'];
-        // $controller->create($idUser, $productId);
+        $controller->create($idUser, $productId);
     }
-
 });
 
 

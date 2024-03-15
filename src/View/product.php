@@ -4,13 +4,11 @@ use App\Controller\FavoriteController;
 
 $favorite = new FavoriteController;
 $favProducts = $favorite->getFavorites($_SESSION['id_user']);
-var_dump($favProducts);
+$favProductId = [];
 
 foreach ($favProducts as $favProduct) {
-    $favProductId[] .= ($favProduct['id_product']);
+    $favProductId[] = $favProduct['id_product'];
 }
-
-var_dump($favProductId);
 
 $currentUrl = $_SERVER['REQUEST_URI'];
 $urlSegments = explode('/', $currentUrl);
@@ -25,7 +23,7 @@ $productId = end($urlSegments);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <link rel="stylesheet" href="public/style/style.css"> -->
+    <link rel="stylesheet" href="public/style/style.css">
     <title>Document</title>
 </head>
 
@@ -43,23 +41,17 @@ $productId = end($urlSegments);
                 <li>
                     <div class="flex justify-between mb-12">
                         <a class="underline" href="/plateforme/pomme-d-api">retour</a>
-
-
-                        
-                        <button x-on:click.prevent="
+                        <button x-show="favArray.includes(parseInt(element._id))" :id="'add-to-favorite-' + element._id">
+                            ❤️
+                        </button>
+                        <button x-show="!favArray.includes(parseInt(element._id))" x-on:click.prevent="
                         let formData = new FormData();
-                        formData.append('productId', <?= $productId ?>);
+                        formData.append('productId', element._id);
                         fetch('favorite', {  
                             method: 'POST',
                             body: formData
                         })
-                        " :id="'add-to-favorite-' + element._id">Add to favorite</button>
-                        
-                        <template x-for="produit in favoris">
-                            <button x-show = "favoris.includes(produit)"></button>
-                        </template>
-
-
+                    " :id="'add-to-favorite-' + element._id">Add to favorite</button>
 
                     </div>
 
@@ -75,8 +67,6 @@ $productId = end($urlSegments);
                             <div x-text="element.allergens"></div>
                             <div x-text="element.categories_tags"></div>
                             <div x-text="element.generic_name"></div>
-
-                            <!-- <img :src="'public/img/' + element.nutriscore_grade + '.svg'" alt=""> -->
                         </div>
                     </div>
                 </li>
